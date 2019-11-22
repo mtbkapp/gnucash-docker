@@ -16,9 +16,13 @@ RUN apt install -y openbox
 
 # the app
 RUN apt install -y gnucash
+RUN apt install -y libdbd-pgsql
 
 # for novnc
 RUN apt install -y net-tools
+
+# running more than one process
+RUN apt install -y ruby-foreman
 
 # for debugging
 RUN apt install -y vim curl
@@ -34,6 +38,7 @@ RUN echo "exec gnucash &" > /home/novnc/.config/openbox/autostart
 
 # add startup script
 # make it executable
+COPY Procfile /home/novnc/Procfile
 COPY start.sh /home/novnc/start.sh
 RUN chmod u+x /home/novnc/start.sh
 
@@ -44,6 +49,5 @@ RUN chown -R novnc:novnc /home/novnc
 USER novnc
 
 # set cmd
-CMD $HOME/start.sh
-
+CMD cd $HOME && $HOME/start.sh
 

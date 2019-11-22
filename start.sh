@@ -8,11 +8,4 @@ fi
 
 rm -rf /tmp/.X1*
 
-# start tigervnc-server
-tigervncserver -xstartup openbox-session
-
-# start novnc
-cd /usr/share/novnc
-utils/launch.sh --vnc localhost:5901
-
-
+foreman start
